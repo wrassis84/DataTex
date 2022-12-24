@@ -19,16 +19,9 @@
 # zsh 5.8.1
 #
 ################################################################################
-### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Does the database file exist?
-[ ! -e "$DB_FILE" ] \
-        && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
-        && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-        && exit 1
-#
-################################################################################
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+DB_FILE="Users.txt"
 TMP_FILE="Temp.$$"  # temp file
 SEP=:               # default field separator
 RED="\033[31;1m"    #|
@@ -37,6 +30,24 @@ YELLOW="\033[33;1m" #| Colors for output:
 PURPLE="\033[35;1m" #|
 CIAN="\033[36;1m"   #|
 ESC="\033[m"        # Escape character
+#
+################################################################################
+### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Does the database file exist?
+[ ! -e "$DB_FILE" ] \
+  && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
+  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
+  && exit 1
+# Does the database file have read permission?
+[ ! -r "$DB_FILE" ] \
+  && echo    "${RED}ERROR: No read permission on '$DB_FILE'!"${ESC}  \
+  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
+  && exit 1
+# Does the database file have write permission?
+[ ! -w "$DB_FILE" ] \
+  && echo    "${RED}ERROR: No write permission on '$DB_FILE'!"${ESC} \
+  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
+  && exit 1
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -71,6 +82,18 @@ SearchRec_func () {
 # This function show the database's field names
 ShowFields () {
   head -n 1 "$DB_FILE" | tr $SEP \\n
+}
+
+# This function show a specific record
+GetRec_func () {
+  local record=$(grep -i "^$1$SEP" "$DB_FILE")
+  local index=0
+  [ "$record" ] || return
+  ShowFields | while read field; do
+    index=$((index+1))
+    echo -n "$field: "
+    echo "$record" | cut -d $SEP -f $index
+  done
 }
 #
 ################################################################################
