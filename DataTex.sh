@@ -41,17 +41,31 @@ ESC="\033[m"        # Escape character
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# This function remove a user of Database, before checking if it exists
-DeleteReg_func () {
-  grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE"
-  mv "$TMP_FILE" "$DB_FILE"
+# This function remove a record of database, before checking if it exists
+DeleteRec_func () {
+  SearchRec_func "$1" || return     # don't go ahead if the record doesn't exist
+  grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # removes the record
+  mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
   echo "${YELLOW}INFO: Login '$login' succesfully removed of Database!"
 }
 
-# This function insert a user in Database, before checking if it exists
-InsertReg_func () {
-    echo "$*" >> "$DB_FILE" && \
-    echo "${GREEN}INFO: Login '$login' succesfully inserted on Database!"
+# This function insert a record into database, before checking if it exists
+InsertRec_func () {
+  local login=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
+  
+  if SearchRec_func "$login"; then
+    echo "${YELLOW}INFO: Login '$login' already exists on database!"
+    return 1
+  else
+    echo "$*" >> "$DB_FILE" && \  # write the record on database
+    echo "${GREEN}INFO: Login '$login' succesfully recorded on database!"
+  fi
+  return 0
+}
+
+# This function search a record in database
+SearchRec_func () {
+  grep -i -q "^$1$SEP" "$DB_FILE"
 }
 #
 ################################################################################
