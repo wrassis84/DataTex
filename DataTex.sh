@@ -67,6 +67,11 @@ InsertRec_func () {
 SearchRec_func () {
   grep -i -q "^$1$SEP" "$DB_FILE"
 }
+
+# This function show the database's field names
+ShowFields () {
+  head -n 1 "$DB_FILE" | tr $SEP \\n
+}
 #
 ################################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
