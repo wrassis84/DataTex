@@ -22,14 +22,14 @@
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 DB_FILE="Users.txt"
-TMP_FILE="Temp.$$"  # temp file
-SEP=:               # default field separator
+TMP_FILE="Temp.$$"  #  temp file
+SEP=:               #  default field separator
 RED="\033[31;1m"    #|
 GREEN="\033[32;1m"  #|
 YELLOW="\033[33;1m" #| Colors for output: 
 PURPLE="\033[35;1m" #|
 CIAN="\033[36;1m"   #|
-ESC="\033[m"        # Escape character
+ESC="\033[m"        #  ESCAPE character
 #
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -94,6 +94,13 @@ GetRec_func () {
     echo -n "$field: "
     echo "$record" | cut -d $SEP -f $index
   done
+}
+
+# This function get a specific field of a record
+# Usage: GetField_func 2 luigisilva
+GetField_func () {
+  local key=${2:-.*}
+  grep -i "^$key$SEP" "$DB_FILE" | cut -d $SEP -f $1
 }
 #
 ################################################################################
