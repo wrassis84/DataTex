@@ -53,7 +53,7 @@ ESC="\033[m"        #  ESCAPE character
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 # This function remove a record of database, before checking if it exists
-DeleteRec_func () {
+Remove_func () {
   SearchRec_func "$1" || return     # don't go ahead if the record doesn't exist
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # removes the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
@@ -61,7 +61,7 @@ DeleteRec_func () {
 }
 
 # This function insert a record into database, before checking if it exists
-InsertRec_func () {
+Insert_func () {
   local login=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
   
   if SearchRec_func "$login"; then
@@ -75,32 +75,25 @@ InsertRec_func () {
 }
 
 # This function search a record in database
-SearchRec_func () {
+Search_func () {
   grep -i -q "^$1$SEP" "$DB_FILE"
 }
 
 # This function show the database's field names
-ShowFields () {
+Fields_func () {
   head -n 1 "$DB_FILE" | tr $SEP \\n
 }
 
 # This function show a specific record
-GetRec_func () {
+Select_func () {
   local record=$(grep -i "^$1$SEP" "$DB_FILE")
   local index=0
   [ "$record" ] || return
-  ShowFields | while read field; do
+  ListFields | while read field; do
     index=$((index+1))
     echo -n "$field: "
     echo "$record" | cut -d $SEP -f $index
   done
-}
-
-# This function get a specific field of a record
-# Usage: GetField_func 2 luigisilva
-GetField_func () {
-  local key=${2:-.*}
-  grep -i "^$key$SEP" "$DB_FILE" | cut -d $SEP -f $1
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
