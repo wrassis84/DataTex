@@ -1,13 +1,18 @@
-login:complete name:age:gender:department
-alfredojunior:Alfredo Vieira Júnior:21:M:deliveries
-danieleteles:Daniele Almeida Teles:19:F:accounting
-lucianasilveira:Luciana Silveira:22:F:management
-anasousza:Ana Paula de Souza:58:F:deliveries
-josevaz:José Carlos Vaz:45:M:management
-joaobatista:João Carlos Batista:40:M:warehouse
-benderrodriguez:Bender Bending Rodriguez:00:M:deliveries
-turangaleela:Turanga Leela:29:F:deliveries
-hermesconrad:Hermes Conrad:40:M:accounting
-philipfry:Philip J. Fry:19:M:deliveries
-luigisilva:Luigi da Silva:28:M:maintenance
-hubertfarnsworth:Hubert J. Farnsworth:88:M:management
+complete name:login:age:gender:job title:department
+Alfredo Vieira Júnior:alfredo.junior:21:M:dispatcher:deliveries
+Daniele Almeida Teles:daniele.teles:19:F:controller:accounting
+Luciana Silveira:luciana.silveira:22:F:specialist:marketing
+Ana Paula de Souza:ana.souza:58:F:dispatcher:deliveries
+José Carlos Vaz:jose.vaz:45:M:general manager:marketing
+João Carlos Batista:joao.batista:40:M:operator:warehouse
+Bender Bending Rodriguez:bender.rodriguez:00:M:general manager:deliveries
+Turanga Leela:turanga.leela:29:F:coordinator:deliveries
+Hermes Conrad:hermes.conrad:40:M:general manager:accounting
+Philip J. Fry:philip.fry:19:M:operator:deliveries
+Luigi da Silva:luigi.silva:28:M:specialist:maintenance
+Hubert J. Farnsworth:hubert.farnsworth:88:M:chairman:management
+Thomas Falcon:thomas.falcon:36:M:consultant:sales
+Jason Bird:jason.bird:38:M:developer:technology
+Raj Kutrapali:raj.kutrapali:38:M:devops engineer:technology
+Randy Saavi:randy.saavi:39:M:devops engineer:technology
+William Rezende:william.rezende:38:M:devops engineer:technology
