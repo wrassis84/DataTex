@@ -55,7 +55,7 @@ ESC="\033[m"        #  ESCAPE character
 # This function remove a record of database, before checking if it exists
 Remove_func () {
   SearchRec_func "$1" || return     # don't go ahead if the record doesn't exist
-  grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # removes the record
+  grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
   echo "${YELLOW}INFO: Login '$login' succesfully removed of Database!"
 }
@@ -81,19 +81,17 @@ Search_func () {
 
 # This function show the database's field names
 Fields_func () {
-  head -n 1 "$DB_FILE" | tr $SEP \\n
+  local fields=$(head -n 1 "$DB_FILE" | column -t -s "$SEP")
+  echo "$fields"
 }
 
 # This function show a specific record
 Select_func () {
-  local record=$(grep -i "^$1$SEP" "$DB_FILE")
-  local index=0
+  local record=$(grep -i "$1" "$DB_FILE")
+  local header=$(head -n 1 "$DB_FILE")
   [ "$record" ] || return
-  ListFields | while read field; do
-    index=$((index+1))
-    echo -n "$field: "
-    echo "$record" | cut -d $SEP -f $index
-  done
+  echo "$header" >  "$TMP_FILE" && echo "$record" >> "$TMP_FILE"
+  cat "$TMP_FILE" | column -t -s : && rm -f "$TMP_FILE"
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
