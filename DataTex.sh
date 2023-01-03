@@ -31,6 +31,31 @@ YELLOW="\033[33;1m" #| Colors for output:
 PURPLE="\033[35;1m" #|
 CIAN="\033[36;1m"   #|
 ESC="\033[m"        #  ESCAPE character
+
+HELP_MSG="
+  Select_func - Selects one (or more) record(s) from database.
+  Usage:
+        Select_func [PARAM] or Select_func to show all records.
+
+  Search_func - Searches a record in database. Only for internall use!
+
+  Insert_func - Inserts a record into database, before checking if it exists.
+  Usage:
+        Insert_func complete name:login:age:gender:job title:department
+
+  Remove_func - Removes a record of database, before checking if it exists.
+  Usage:
+        Remove_func [LOGIN]
+
+  Fields_func - Shows the database's field names.
+  Usage:
+        Fields_func
+
+  Help_func   - Shows this help.
+  Usage:
+        Help_func
+
+"
 #
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -94,6 +119,12 @@ Select_func () {
   [ "$record" ] || return
   echo "$header" >  "$TMP_FILE" && echo "$record" >> "$TMP_FILE"
   cat "$TMP_FILE" | column -t -s : && rm -f "$TMP_FILE"
+}
+
+# This function shows the DataTex help
+Help_func () {
+  echo -n "$HELP_MSG" && echo -n "  [ENTER] to continue:" && read REPLY \
+                      && clear
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
