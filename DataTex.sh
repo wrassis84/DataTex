@@ -33,6 +33,8 @@ CIAN="\033[36;1m"   #|
 ESC="\033[m"        #  ESCAPE character
 
 HELP_MSG="
+  ${YELLOW}Help Menu for $(basename $0) Functions:
+  
   Select_func - Selects one (or more) record(s) from database.
   Usage:
         Select_func [PARAM] or Select_func to show all records.
@@ -53,7 +55,7 @@ HELP_MSG="
 
   Help_func   - Shows this help.
   Usage:
-        Help_func
+        Help_func${ESC}
 
 "
 #
@@ -123,6 +125,7 @@ Select_func () {
 
 # This function shows the DataTex help
 Help_func () {
+  clear
   echo -n "$HELP_MSG" && echo -n "  [ENTER] to continue:" && read REPLY \
                       && clear
 }
