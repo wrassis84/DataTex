@@ -21,6 +21,7 @@
 ################################################################################
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d $SEP -f 1)
 DB_FILE="Data.txt"
 TMP_FILE="Temp.$$"  #  temp file
 SEP=:               #  default field separator
@@ -57,19 +58,19 @@ Remove_func () {
   SearchRec_func "$1" || return     # don't go ahead if the record doesn't exist
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
-  echo "${YELLOW}INFO: Login '$login' succesfully removed of Database!"
+  echo "${YELLOW}INFO: Login '$id' succesfully removed of Database!"
 }
 
 # This function insert a record into database, before checking if it exists
 Insert_func () {
-  local login=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
+  local id=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
   
-  if SearchRec_func "$login"; then
-    echo "${YELLOW}INFO: Login '$login' already exists on database!"
+  if Search_func "$id"; then
+    echo "${YELLOW}INFO: The id '$id' already exists on database!"
     return 1
   else
     echo "$*" >> "$DB_FILE" && \  # write the record on database
-    echo "${GREEN}INFO: Login '$login' succesfully recorded on database!"
+    echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
   fi
   return 0
 }
@@ -83,6 +84,7 @@ Search_func () {
 Fields_func () {
   local fields=$(head -n 1 "$DB_FILE" | column -t -s "$SEP")
   echo "$fields"
+  echo "$LAST_ID -> last id in use"
 }
 
 # This function show a specific record
