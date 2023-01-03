@@ -13,6 +13,11 @@ id:complete name:login:age:gender:job title:department
 12:Hubert J. Farnsworth:hubert.farnsworth:88:M:chairman:management
 13:Thomas Falcon:thomas.falcon:36:M:consultant:sales
 14:Jason Bird:jason.bird:38:M:developer:technology
-15:Raj Kutrapali:raj.kutrapali:38:M:devops engineer:technology
-16:Randy Saavi:randy.saavi:39:M:devops engineer:technology
-17:William Rezende:william.rezende:38:M:devops engineer:technology
+15:Raj Kutrapali:raj.kutrapali:38:M:jr devops engineer:technology
+16:Randy Saavi:randy.saavi:39:M:jr devops engineer:technology
+17:William Rezende:william.rezende:38:M:jr devops engineer:technology
+18:Linus Torvalds:linus.torvalds:42:M:sr devops engineer:technology
+19:Steve Wozniak:steve.wozniak:48:M:pl devops engineer:technology
+20:Steve Palmer:steve.palmer:50:M:pl devops engineer:technology
+21:Stevie Wonder:stevie.wonder:60:M:consultant:sales
+22:Amy Winehouse:amy.winehouse:35:F:consultant:sales

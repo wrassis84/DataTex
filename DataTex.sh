@@ -82,17 +82,16 @@ HELP_MSG="
 #
 # This function remove a record of database, before checking if it exists
 Remove_func () {
-  SearchRec_func "$1" || return     # don't go ahead if the record doesn't exist
+  Search_func "$1" || return     # don't go ahead if the record doesn't exist
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
-  echo "${YELLOW}INFO: Login '$id' succesfully removed of Database!"
+  echo "${YELLOW}INFO: The id '$id' succesfully removed of Database!"
 }
 
 # This function insert a record into database, before checking if it exists
 Insert_func () {
   local id=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
-  
-  if Search_func "$id"; then
+  if Search_func "$id"; then # if true
     echo "${YELLOW}INFO: The id '$id' already exists on database!"
     return 1
   else
@@ -100,11 +99,16 @@ Insert_func () {
     echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
   fi
   return 0
+  # FIXME: add Refresh_func to update the last id in use!
+  #        on Remove_func, Insert_func and Fields_func
 }
 
 # This function search a record in database
 Search_func () {
-  grep -i -q "^$1$SEP" "$DB_FILE"
+  #grep -i -q "$1$SEP" "$DB_FILE"
+  grep -q "^$1$SEP" "$DB_FILE"
+  # FIXME: grep must search only on database 1st field (primary key)!
+  #        Can a loop solve the problem? Like in Parser.sh
 }
 
 # This function show the database's field names
