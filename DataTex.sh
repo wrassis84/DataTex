@@ -22,6 +22,7 @@
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d $SEP -f 1)
+LIB_FILE="DataTex.sh"
 DB_FILE="Data.txt"
 TMP_FILE="Temp.$$"  #  temp file
 SEP=:               #  default field separator
@@ -40,6 +41,8 @@ HELP_MSG="
         Select_func [PARAM] or Select_func to show all records.
 
   Search_func - Searches a record in database. Only for internall use!
+  
+  Update_func - Updates with last id on database. Only for internall use!
 
   Insert_func - Inserts a record into database, before checking if it exists.
   Usage:
@@ -86,52 +89,61 @@ Remove_func () {
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
   echo "${YELLOW}INFO: The id '$id' succesfully removed of Database!"
+  Update_func
 }
 
 # This function insert a record into database, before checking if it exists
 Insert_func () {
   local id=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
   if Search_func "$id"; then # if true
+    clear
     echo "${YELLOW}INFO: The id '$id' already exists on database!"
     return 1
   else
-    echo "$*" >> "$DB_FILE" && \  # write the record on database
+    echo "$*" >> "$DB_FILE" 2>&-  # write the record on database
+    clear
     echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
   fi
   return 0
-  # FIXME: add Refresh_func to update the last id in use!
-  #        on Remove_func, Insert_func and Fields_func
+  Update_func
 }
 
 # This function search a record in database
 Search_func () {
   #grep -i -q "$1$SEP" "$DB_FILE"
   grep -q "^$1$SEP" "$DB_FILE"
-  # FIXME: grep must search only on database 1st field (primary key)!
-  #        Can a loop solve the problem? Like in Parser.sh
 }
 
 # This function show the database's field names
 Fields_func () {
   local fields=$(head -n 1 "$DB_FILE" | column -t -s "$SEP")
   echo "$fields"
-  echo "$LAST_ID -> last id in use"
+  Update_func
+  #echo "($LAST_ID) -> last id in use"
 }
 
-# This function show a specific record
+# This function shows records that match searched pattern 
 Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
-  local header=$(head -n 1 "$DB_FILE")
+  #local header=$(head -n 1 "$DB_FILE")
   [ "$record" ] || return
+  # FIXME: The function duplicates the header when $1 is empty
   echo "$header" >  "$TMP_FILE" && echo "$record" >> "$TMP_FILE"
   cat "$TMP_FILE" | column -t -s : && rm -f "$TMP_FILE"
+  Update_func
 }
 
 # This function shows the DataTex help
 Help_func () {
   clear
-  echo -n "$HELP_MSG" && echo -n "  [ENTER] to continue:" && read REPLY \
+  echo -n "$HELP_MSG" && echo -n "  [ENTER] to continue:" \
+                      && read REPLY                       \
                       && clear
+}
+
+# This function updates the last id in use
+Update_func () {
+  source $LIB_FILE
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
