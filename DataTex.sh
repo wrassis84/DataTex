@@ -128,11 +128,11 @@ Select_func () {
   local header=$(head -n 1 "$DB_FILE")
   Update_func
   [ "$record" ] || return
-  # if $1 is null...
+  # if $1 is null
   [ -z $1 ] && echo "$record" > "$TMP_FILE"     \
             && cat "$TMP_FILE" | column -t -s : \
             && rm -f "$TMP_FILE" && return
-  # if $1 is not null...
+  # if $1 is not null
   [ -n $1 ] && echo "$header" > "$TMP_FILE"     \
             && echo "$record" >> "$TMP_FILE"    \
             && cat "$TMP_FILE" | column -t -s : \
