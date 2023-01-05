@@ -27,3 +27,4 @@ id:complete name:login:age:gender:job title:department
 26:Penny Wiat:penny.wiat:40:F:operator:deliveries
 27:Stuart Miller Jonhson:stuart.jonhson:40:M:consultant:deliveries
 28:Tom Cruise Maverick:tom.maverick:45:M:salesman:sales
+29:Tommy Slash:tommy.slash:53:M:salesman:sales

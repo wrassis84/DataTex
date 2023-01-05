@@ -50,7 +50,7 @@ HELP_MSG="
 
   Remove_func - Removes a record of database, before checking if it exists.
   Usage:
-        Remove_func [LOGIN]
+        Remove_func [id]
 
   Fields_func - Shows the database's field names.
   Usage:
@@ -88,7 +88,7 @@ Remove_func () {
   Search_func "$1" || return     # don't go ahead if the record doesn't exist
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
-  echo "${YELLOW}INFO: The id '$id' succesfully removed of Database!"
+  echo "${YELLOW}INFO: The id '$1' succesfully removed of Database!"
   Update_func
 }
 
@@ -119,18 +119,24 @@ Fields_func () {
   local fields=$(head -n 1 "$DB_FILE" | column -t -s "$SEP")
   echo "$fields"
   Update_func
-  #echo "($LAST_ID) -> last id in use"
+  echo "$LAST_ID - last id in use"
 }
 
 # This function shows records that match searched pattern 
 Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
-  #local header=$(head -n 1 "$DB_FILE")
-  [ "$record" ] || return
-  # FIXME: The function duplicates the header when $1 is empty
-  echo "$header" >  "$TMP_FILE" && echo "$record" >> "$TMP_FILE"
-  cat "$TMP_FILE" | column -t -s : && rm -f "$TMP_FILE"
+  local header=$(head -n 1 "$DB_FILE")
   Update_func
+  [ "$record" ] || return
+  # if $1 is null...
+  [ -z $1 ] && echo "$record" > "$TMP_FILE"     \
+            && cat "$TMP_FILE" | column -t -s : \
+            && rm -f "$TMP_FILE" && return
+  # if $1 is not null...
+  [ -n $1 ] && echo "$header" > "$TMP_FILE"     \
+            && echo "$record" >> "$TMP_FILE"    \
+            && cat "$TMP_FILE" | column -t -s : \
+            && rm -f "$TMP_FILE" && return
 }
 
 # This function shows the DataTex help
