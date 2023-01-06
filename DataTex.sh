@@ -58,7 +58,12 @@ HELP_MSG="
 
   Help_func   - Shows this help.
   Usage:
-        Help_func${ESC}
+        Help_func
+        
+  Backup_func - Backup the database.
+  Usage:
+        Backup_func -b - Backup the database.
+        Backup_func -r - Restore the database's backup.${ESC}
 
 "
 #
@@ -157,7 +162,12 @@ Backup_func () {
   local bkp_date=$(date +'%d-%m-%Y')
   local src_file="$DB_FILE"
   local bkp_file="$DB_FILE-$bkp_date.tar.gz"
-  tar --gzip -cvvvf $bkp_file $src_file # backups the database
+  
+  case "$1" in
+    -b) tar --gzip -cvvvf $bkp_file $src_file ;;  # backup the database
+    -r) tar -xvf $bkp_file                    ;;  # restore the backup
+     *) echo "${YELLOW}WARN: Use -b to backup or -r to restore"; return ;;
+  esac
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
