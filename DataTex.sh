@@ -68,17 +68,17 @@ HELP_MSG="
 [ ! -e "$DB_FILE" ] \
   && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1
+  && exit 1  #FIXME: maybe change this for return statement
 # Does the database file have read permission?
 [ ! -r "$DB_FILE" ] \
   && echo    "${RED}ERROR: No read permission on '$DB_FILE'!"${ESC}  \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1
+  && exit 1  #FIXME: maybe change this for return statement
 # Does the database file have write permission?
 [ ! -w "$DB_FILE" ] \
   && echo    "${RED}ERROR: No write permission on '$DB_FILE'!"${ESC} \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1
+  && exit 1  #FIXME: maybe change this for return statement
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -150,6 +150,14 @@ Help_func () {
 # This function updates the last id in use
 Update_func () {
   source $LIB_FILE
+}
+
+# This function backup the database
+Backup_func () {
+  local bkp_date=$(date +'%d-%m-%Y')
+  local src_file="$DB_FILE"
+  local bkp_file="$DB_FILE-$bkp_date.tar.gz"
+  tar --gzip -cvvvf $bkp_file $src_file # backups the database
 }
 #
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
