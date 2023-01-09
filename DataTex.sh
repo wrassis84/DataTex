@@ -94,7 +94,7 @@ Remove_func () {
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
   echo "${YELLOW}INFO: The id '$1' succesfully removed of Database!"
-  Update_func
+  Update_func # this function updates last id in use
 }
 
 # This function insert a record into database, before checking if it exists
@@ -110,20 +110,19 @@ Insert_func () {
     echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
   fi
   return 0
-  Update_func
+  Update_func # this function updates last id in use
 }
 
-# This function search a record in database
+# This function search a record in database. Only for internal use
 Search_func () {
-  #grep -i -q "$1$SEP" "$DB_FILE"
   grep -q "^$1$SEP" "$DB_FILE"
 }
 
-# This function show the database's field names
+# This function show the database's field names and last id in use
 Fields_func () {
   local fields=$(head -n 1 "$DB_FILE" | column -t -s "$SEP")
   echo "$fields"
-  Update_func
+  Update_func # this function updates last id in use
   echo "$LAST_ID - last id in use"
 }
 
@@ -131,13 +130,13 @@ Fields_func () {
 Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
   local header=$(head -n 1 "$DB_FILE")
-  Update_func
+  Update_func # this function updates last id in use
   [ "$record" ] || return
-  # if $1 is null
+  # if $1 is null, gets all records
   [ -z $1 ] && echo "$record" > "$TMP_FILE"     \
             && cat "$TMP_FILE" | column -t -s : \
             && rm -f "$TMP_FILE" && return
-  # if $1 is not null
+  # if $1 is not null, gets one or more records if matchs searched pattern
   [ -n $1 ] && echo "$header" > "$TMP_FILE"     \
             && echo "$record" >> "$TMP_FILE"    \
             && cat "$TMP_FILE" | column -t -s : \
@@ -162,7 +161,6 @@ Backup_func () {
   local bkp_date=$(date +'%d-%m-%Y')
   local src_file="$DB_FILE"
   local bkp_file="$DB_FILE-$bkp_date.tar.gz"
-  
   case "$1" in
     -b) tar --gzip -cvvvf $bkp_file $src_file ;;  # backup the database
     -r) tar -xvf $bkp_file                    ;;  # restore the backup
