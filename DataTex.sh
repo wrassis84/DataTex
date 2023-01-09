@@ -28,20 +28,20 @@ TMP_FILE="Temp.$$"  #  temp file
 SEP=:               #  default field separator
 RED="\033[31;1m"    #|
 GREEN="\033[32;1m"  #|
-YELLOW="\033[33;1m" #| Colors for output: 
+YELLOW="\033[33;1m" #| Colors for output:
 PURPLE="\033[35;1m" #|
 CIAN="\033[36;1m"   #|
 ESC="\033[m"        #  ESCAPE character
 
 HELP_MSG="
   ${YELLOW}Help Menu for $(basename $0) Functions:
-  
+
   Select_func - Selects one (or more) record(s) from database.
   Usage:
         Select_func [PARAM] or Select_func to show all records.
 
   Search_func - Searches a record in database. Only for internall use!
-  
+
   Update_func - Updates with last id on database. Only for internall use!
 
   Insert_func - Inserts a record into database, before checking if it exists.
@@ -59,7 +59,7 @@ HELP_MSG="
   Help_func   - Shows this help.
   Usage:
         Help_func
-        
+
   Backup_func - Backup the database.
   Usage:
         Backup_func -b - Backup the database.
@@ -126,7 +126,7 @@ Fields_func () {
   echo "$LAST_ID - last id in use"
 }
 
-# This function shows records that match searched pattern 
+# This function shows records that match searched pattern
 Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
   local header=$(head -n 1 "$DB_FILE")
@@ -162,8 +162,10 @@ Backup_func () {
   local src_file="$DB_FILE"
   local bkp_file="$DB_FILE-$bkp_date.tar.gz"
   case "$1" in
-    -b) tar --gzip -cvvvf $bkp_file $src_file ;;  # backup the database
-    -r) tar -xvf $bkp_file                    ;;  # restore the backup
+    -b) tar --gzip -cvvvf $bkp_file $src_file > /dev/null    && # bkp database
+        echo "${GREEN}INFO: Backup performed successfully! "            ;;
+    -r) tar -xvf $bkp_file > /dev/null                       && # restores bkp
+        echo "${GREEN}INFO: Restore performed successfully!"            ;;
      *) echo "${YELLOW}WARN: Use -b to backup or -r to restore"; return ;;
   esac
 }
