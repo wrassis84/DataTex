@@ -73,17 +73,17 @@ HELP_MSG="
 [ ! -e "$DB_FILE" ] \
   && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1  #FIXME: maybe change this for return statement
+  && return
 # Does the database file have read permission?
 [ ! -r "$DB_FILE" ] \
   && echo    "${RED}ERROR: No read permission on '$DB_FILE'!"${ESC}  \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1  #FIXME: maybe change this for return statement
+  && return
 # Does the database file have write permission?
 [ ! -w "$DB_FILE" ] \
   && echo    "${RED}ERROR: No write permission on '$DB_FILE'!"${ESC} \
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && exit 1  #FIXME: maybe change this for return statement
+  && return
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
