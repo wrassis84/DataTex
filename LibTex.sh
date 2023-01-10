@@ -9,7 +9,7 @@
 # Author          : William Ramos de Assis Rezende
 # Maintainer      : William Ramos de Assis Rezende
 #
-# "DataTex.sh"    : Library of functions for managing textual databases.
+# "LibTex.sh"     : Library of functions for managing textual databases.
 #
 # Usage           : Run 'source DataTex.sh' to include it in your programs.
 #
@@ -22,8 +22,8 @@
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d $SEP -f 1)
-LIB_FILE="DataTex.sh"
-DB_FILE="Data.txt"
+LIB_FILE="LibTex.sh"
+DB_FILE="DataDB.txt"
 TMP_FILE="Temp.$$"  #  temp file
 SEP=:               #  default field separator
 RED="\033[31;1m"    #|
