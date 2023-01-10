@@ -9,9 +9,9 @@
 # Author          : William Ramos de Assis Rezende
 # Maintainer      : William Ramos de Assis Rezende
 #
-# "TexUser.sh"    : List, Add and Remove users from DataTex systems.
-# Requirements    : DataTex.sh
-# Usage           : TexUser.sh [list | add | remove]
+# "DataTex.sh"    : List, Add and Remove users from DataTex systems.
+# Requirements    : LibTex.sh
+# Usage           : DataTex.sh [ list | add | remove ]
 #
 ################################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
