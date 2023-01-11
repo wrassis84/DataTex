@@ -9,7 +9,7 @@
 # Author          : William Ramos de Assis Rezende
 # Maintainer      : William Ramos de Assis Rezende
 #
-# "LibTex.sh"     : Library of functions for managing textual databases.
+# LibTex.sh       : Library of functions for managing textual databases.
 #
 # Usage           : Run 'source DataTex.sh' to include it in your programs.
 #
@@ -131,12 +131,12 @@ Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
   local header=$(head -n 1 "$DB_FILE")
   Update_func # this function updates last id in use
-  [ "$record" ] || return
-  # if $1 is null, gets all records
+  [ "$record" ] || return  # if nothing be found, return
+  # if $1 is null, bring all records
   [ -z $1 ] && echo "$record" > "$TMP_FILE"     \
             && cat "$TMP_FILE" | column -t -s : \
             && rm -f "$TMP_FILE" && return
-  # if $1 is not null, gets one or more records if matchs searched pattern
+  # if $1 is not null, bring one or more records that matchs searched pattern
   [ -n $1 ] && echo "$header" > "$TMP_FILE"     \
             && echo "$record" >> "$TMP_FILE"    \
             && cat "$TMP_FILE" | column -t -s : \
