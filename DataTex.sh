@@ -22,7 +22,8 @@
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 DB_FILE="DataDB.txt" #| Database file
-#LIB_FILE="LibTex.sh" #| Library file
+LIB_FILE="LibTex.sh" #| Library file
+
 RED="\033[31;1m"     #|
 GREEN="\033[32;1m"   #|
 YELLOW="\033[33;1m"  #| Colors for output:
@@ -42,8 +43,11 @@ ESC="\033[m"         #| ESCAPE character
   echo
   return 1
 }
+
 source "$LIB_FILE" || {
-  echo "${RED}WARN: Library functions not loaded!"
+  echo '\033[1;5;31m WARN: Library $LIB_FILE not loaded! \033[m'
+  read REPLY
+  clear
   return 1
 }
 
@@ -52,27 +56,29 @@ case "$1" in
         Select_func
   ;;
    add )
-        echo -n "Type the new id: "
+        echo -n "Type the new ID: "
         read id
+        # if expr "$id" + 0 > /dev/null 2>&1 && [ "$id" -gt 0 ] ||
+        # [ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] && echo "Positive integer!"
         [ "$id" ] || {
-         echo "${YELLOW}WARN: The id must be an integer. Try again!"
+         echo "${YELLOW}WARN: ID must be an positive integer! Try again!"
          return
         }
         # search if id exists
         Search_func && {
-         echo "${YELLOW}INFO: The id '$id' already exists on database!"
+         echo "${YELLOW}INFO: ID '$id' already exists on database!"
          return
         }
         # if id not exists, go ahead
-        echo -n "Enter the new id: "
+        echo -n "Enter the new ID: "
         read id
         echo -n "Enter complete name: "
         read name
         echo -n "Enter login [first name.last name]: "
-        read login
+        read login && login=$(echo $login | tr [A-Z] [a-z])
         echo -n "Enter age [0-99]: "
         read age
-        echo -n "Enter gender [male|female]: "
+        echo -n "Enter gender [M|F]: "
         read gender
         echo -n "Enter job title: "
         read job
@@ -82,6 +88,7 @@ case "$1" in
         Insert_func "$id:$name:$login:$age:$gender:$job:$department"
         echo
   ;;
+
   remove )
         local all_users=$(cat "$DB_FILE" | column -t -s $SEP)
         echo "DataTex users list:"
@@ -95,10 +102,11 @@ case "$1" in
            if Search_func "$id" ; then
              Remove_func "$id"
            else
-             echo "${YELLOW}INFO: The id '$id' not exists on Database!"
+             echo "${YELLOW}INFO: ID '$id' not exists on Database!"
            fi
              echo
   ;;
+
        * )
        echo "${YELLOW}WARN: Invalid option: '$1'!"
        return 1
