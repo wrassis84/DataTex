@@ -107,7 +107,7 @@ Insert_func () {
   else
     echo "$*" >> "$DB_FILE" 2>&-  # write the record on database
     clear
-    echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
+    echo -e '\033[1;5;32mINFO: ID '$id' succesfully recorded on database!\033[m'
   fi
   return 0
   Update_func # this function updates last id in use
