@@ -9,7 +9,11 @@
 # Author     : William Ramos de Assis Rezende
 # Maintainer : William Ramos de Assis Rezende
 #
+<<<<<<< HEAD
 # LibTex.sh  : Library of functions for managing textual databases.
+=======
+# LibTex.sh       : Library of functions for managing textual databases.
+>>>>>>> datatex
 #
 # Usage      : Run 'source DataTex.sh' to include it in your programs.
 #
@@ -107,7 +111,7 @@ Insert_func () {
   else
     echo "$*" >> "$DB_FILE" 2>&-  # write the record on database
     clear
-    echo "${GREEN}INFO: The id '$id' succesfully recorded on database!"
+    echo -e '\033[1;5;32mINFO: ID '$id' succesfully recorded on database!\033[m'
   fi
   return 0
   Update_func # this function updates last id in use

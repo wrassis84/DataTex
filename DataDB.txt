@@ -28,4 +28,10 @@ id:complete name:login:age:gender:job title:department
 27:Stuart Miller Jonhson:stuart.jonhson:40:M:consultant:deliveries
 28:Tom Cruise Maverick:tom.maverick:45:M:salesman:sales
 29:Tommy Slash:tommy.slash:53:M:salesman:sales
+<<<<<<< HEAD
 30:Paul MCCartney:paul.mccartney:53:M:salesman:sales
+=======
+30:Patrisha Ferrari:patrisha.ferrari:36:M:general manager:business
+31:Airton Senna:airton.senna:45:M:runner:races
+32:Michael Schumaker:michael.schumaker:56:M:runner:races
+>>>>>>> datatex
