@@ -1,9 +1,8 @@
-################################################################################
+### ENVIRONMENT ################################################################
 #
 #!/usr/bin/env bash
 #
-################################################################################
-### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+### ABOUT ######################################################################
 #
 # Repository      : https://github.com/wrassis84/DataTex
 # Author          : William Ramos de Assis Rezende
@@ -13,13 +12,11 @@
 #
 # Usage           : Run 'source DataTex.sh' to include it in your programs.
 #
-################################################################################
-### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+### TESTING ENVIRONMENT ########################################################
 #
 # zsh 5.8.1
 #
-################################################################################
-### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+### VARIABLE DECLARATION #######################################################
 #
 LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d $SEP -f 1)
 LIB_FILE="LibTex.sh"
@@ -67,8 +64,7 @@ HELP_MSG="
 
 "
 #
-################################################################################
-### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+### TESTS/VALIDATIONS ##########################################################
 # Does the database file exist?
 [ ! -e "$DB_FILE" ] \
   && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
@@ -85,9 +81,13 @@ HELP_MSG="
   && echo -n "[ENTER] to continue:" && read REPLY && clear           \
   && return
 #
-################################################################################
-### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+### FUNCTION DECLARATION #######################################################
 #
+# This function search a record in database. Only for internal use
+Search_func () {
+  grep -q "^$1$SEP" "$DB_FILE"
+}
+
 # This function remove a record of database, before checking if it exists
 Remove_func () {
   Search_func "$1" || return     # don't go ahead if the record doesn't exist
@@ -111,11 +111,6 @@ Insert_func () {
   fi
   return 0
   Update_func # this function updates last id in use
-}
-
-# This function search a record in database. Only for internal use
-Search_func () {
-  grep -q "^$1$SEP" "$DB_FILE"
 }
 
 # This function show the database's field names and last id in use
@@ -170,5 +165,4 @@ Backup_func () {
   esac
 }
 #
-### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
-################################################################################
+### FUNCTION DECLARATION #######################################################
