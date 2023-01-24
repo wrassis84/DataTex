@@ -8,11 +8,7 @@
 # Author     : William Ramos de Assis Rezende
 # Maintainer : William Ramos de Assis Rezende
 #
-<<<<<<< HEAD
 # LibTex.sh  : Library of functions for managing textual databases.
-=======
-# LibTex.sh       : Library of functions for managing textual databases.
->>>>>>> datatex
 #
 # Usage      : Run 'source DataTex.sh' to include it in your programs.
 #
