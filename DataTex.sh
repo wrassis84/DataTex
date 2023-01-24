@@ -57,66 +57,67 @@ source "$LIB_FILE" || {
 }
 
 case "$1" in
-  list )
-        Select_func
-  ;;
-   add )
-        #echo -n "Type the new ID: "
-        #read id
-        #[ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] || {
-        #  echo -e '\033[1;33m WARN: ID must be an positive integer! \033[m'
-        #}
-        # search if id exists
-        #[ grep -q "^$id$SEP" "$DB_FILE" ] && {
-        # echo -e '\033[1;33m INFO: ID $id already exists on database! \033[m'
-        # return
-        #}
-        # if id not exists, go ahead
-        echo -n "Enter the new ID: "
-        read id
-          [ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] || {
-            echo -e '\033[1;33mWARN: ID must be an positive integer! \033[m'
-          }
-          [ grep "^$id$SEP" "$DB_FILE" ] || {
-            echo -e '\033[1;33mINFO: ID $id already exists on database! \033[m'
-          }
-        echo -n "Enter complete name: "
-        read name
-        echo -n "Enter login [first name.last name]: "
-        read login && login=$(echo $login | tr [A-Z] [a-z])
-        echo -n "Enter age [0-99]: "
-        read age
-        echo -n "Enter gender [M|F]: "
-        read gender && gender=$(echo $gender | tr [a-z] [A-Z])
-        echo -n "Enter job title: "
-        read job && job=$(echo $job | tr [A-Z] [a-z])
-        echo -n "Enter department: "
-        read dept && dept=$(echo $dept | tr [A-Z] [a-z])
-        echo
-        Insert_func "$id:$name:$login:$age:$gender:$job:$dept"
-        echo
+  list)
+    Select_func
   ;;
 
-  remove )
-        local all_users=$(cat "$DB_FILE" | column -t -s $SEP)
-        echo "DataTex users list:"
-        echo "$all_users"
-        echo
-        echo
-        echo -n "Which ID do you want to remove? "
-        read id
-        echo
-
-           if Search_func "$id" ; then
-             Remove_func "$id"
-           else
-             echo -e '\033[1;33mINFO: ID $id not exists on Database! \033[m'
-           fi
-             echo
+  add)
+    #echo -n "Type the new ID: "
+    #read id
+    #[ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] || {
+    #echo -e '\033[1;33m WARN: ID must be an positive integer! \033[m'
+    #}
+    # search if id exists
+    #[ grep -q "^$id$SEP" "$DB_FILE" ] && {
+    # echo -e '\033[1;33m INFO: ID $id already exists on database! \033[m'
+    # return
+    #}
+    # if id not exists, go ahead
+    echo -n "Enter the new ID: "
+    read id
+    [ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] || {
+    echo -e '\033[1;33mWARN: ID must be an positive integer! \033[m'
+    }
+    [ grep "^$id$SEP" "$DB_FILE" ] || {
+    echo -e '\033[1;33mINFO: ID $id already exists on database! \033[m'
+    }
+    echo -n "Enter complete name: "
+    read name
+    echo -n "Enter login [first name.last name]: "
+    read login && login=$(echo $login | tr [A-Z] [a-z])
+    echo -n "Enter age [0-99]: "
+    read age
+    echo -n "Enter gender [M|F]: "
+    read gender && gender=$(echo $gender | tr [a-z] [A-Z])
+    echo -n "Enter job title: "
+    read job && job=$(echo $job | tr [A-Z] [a-z])
+    echo -n "Enter department: "
+    read dept && dept=$(echo $dept | tr [A-Z] [a-z])
+    echo
+    Insert_func "$id:$name:$login:$age:$gender:$job:$dept"
+    echo
   ;;
 
-       * )
-       echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
-       return 1
+  remove)
+    local all_users=$(cat "$DB_FILE" | column -t -s $SEP)
+    echo "DataTex users list:"
+    echo "$all_users"
+    echo
+    echo
+    echo -n "Which ID do you want to remove? "
+    read id
+    echo
+
+    if Search_func "$id" ; then
+      Remove_func "$id"
+    else
+      echo -e '\033[1;33mINFO: ID $id not exists on Database! \033[m'
+    fi
+    echo
+  ;;
+
+  *)
+    echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
+    return 1
   ;;
 esac
