@@ -81,6 +81,8 @@ case "$1" in
   echo -e  '\033[1;5;33mINFO: This ID already exists on database! \033[m'
   echo -en '\033[1;5;33mINFO: The last ID on database is: '
   LastId_func
+  echo -en '\033[1;5;33mINFO: The next ID must be: '
+  NextId_func
   echo -en '\033[1;5;33m[ENTER] to continue... \033[m' && read
   exit 1
   }

@@ -125,8 +125,17 @@ Fields_func () {
 # This function updates and show last id on database
 LastId_func (){
   local last_id=$(tac "$DB_FILE" | head -1 | cut -d "$SEP" -f 1)
+  local next_id=$(echo $(($last_id + 1)))
   echo "$last_id"
 }
+
+# This function updates and show last id on database
+NextId_func (){
+  local last_id=$(tac "$DB_FILE" | head -1 | cut -d "$SEP" -f 1)
+  local next_id=$(echo $(($last_id + 1)))
+  echo "$next_id"
+}
+
 
 # This function shows records that match searched pattern
 Select_func () {
