@@ -136,7 +136,6 @@ NextId_func (){
   echo "$next_id"
 }
 
-
 # This function shows records that match searched pattern
 Select_func () {
   local record=$(grep -i "$1" "$DB_FILE")
