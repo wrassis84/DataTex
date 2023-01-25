@@ -18,7 +18,7 @@
 #
 ### VARIABLE DECLARATION #######################################################
 #
-LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d $SEP -f 1)
+LAST_ID=$(tac "$DB_FILE" | head -1 | cut -d "$SEP" -f 1)
 LIB_FILE="LibTex.sh"
 DB_FILE="DataDB.txt"
 TMP_FILE="Temp.$$"  #  temp file
@@ -85,6 +85,7 @@ HELP_MSG="
 #
 # This function search a record in database. Only for internal use
 Search_func () {
+  Update_func
   grep -q "^$1$SEP" "$DB_FILE"
 }
 
@@ -99,7 +100,7 @@ Remove_func () {
 
 # This function insert a record into database, before checking if it exists
 Insert_func () {
-  local id=$(echo "$1" | cut -d $SEP -f 1)   # get record's first field
+  local id=$(echo "$1" | cut -d "$SEP" -f 1)   # get record's first field
   if Search_func "$id"; then # if true
     clear
     echo "${YELLOW}INFO: The id '$id' already exists on database!"
@@ -119,6 +120,12 @@ Fields_func () {
   echo "$fields"
   Update_func # this function updates last id in use
   echo "$LAST_ID - last id in use"
+}
+
+# This function updates and show last id on database
+LastId_func (){
+  local last_id=$(tac "$DB_FILE" | head -1 | cut -d "$SEP" -f 1)
+  echo "$last_id"
 }
 
 # This function shows records that match searched pattern
