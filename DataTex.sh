@@ -10,7 +10,7 @@
 #
 # DataTex.sh      : List, Add and Remove users from DataTex systems.
 # Requirements    : LibTex.sh
-# Usage           : DataTex.sh [ list | add | remove ]
+# Usage           : ./DataTex.sh [ list | add | remove ]
 #
 ### TESTING ENVIRONMENT ########################################################
 #
@@ -72,10 +72,16 @@ case "$1" in
   echo -n "Enter the new ID: "
   read id
   [ `expr "$id" + 0 2>&-` ] && [ $id -gt 0 ] || {
-  echo -e '\033[1;33mWARN: ID must be an positive integer! \033[m'
+  echo -e  '\033[1;5;33mWARN: ID must be an positive integer! \033[m'
+  echo -en '\033[1;5;33m[ENTER] to continue... \033[m' && read
+  exit 1
   }
-  [ grep "^$id$SEP" "$DB_FILE" ] || {
-  echo -e '\033[1;33mINFO: ID $id already exists on database! \033[m'
+  Search_func || {
+  echo -e  '\033[1;5;33mINFO: This ID already exists on database! \033[m'
+  echo -en '\033[1;5;33mINFO: The last ID on database is: '
+  LastId_func
+  echo -en '\033[1;5;33m[ENTER] to continue... \033[m' && read
+  exit 1
   }
   echo -n "Enter complete name: "
   read name
@@ -95,7 +101,7 @@ case "$1" in
   ;;
 
   remove)
-  local all_users=$(cat "$DB_FILE" | column -t -s $SEP)
+  local all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
   echo "DataTex users list:"
   echo "$all_users"
   echo
