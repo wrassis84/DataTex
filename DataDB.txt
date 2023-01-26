@@ -33,3 +33,6 @@ id:complete name:login:age:gender:job title:department
 32:Airton Senna:airton.senna:45:M:runner:races
 33:Michael Schumaker:michael.schumaker:56:M:runner:races
 34:William Shakespeare:william.shakespeare:66:M:poetry:letters
+35:George Walker Bush:george.bush:65:M:president:deliveries
+36:Barack Obama:barack.obama:56:M:president:deliveries
+37:Leonardo Da Vinci:leonardo.vinci:150:M:inventor:creating
