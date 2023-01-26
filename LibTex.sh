@@ -94,7 +94,9 @@ Remove_func () {
   Search_func "$1" || return     # don't go ahead if the record doesn't exist
   grep -i -v "^$1$SEP" "$DB_FILE" > "$TMP_FILE" # remove the record
   mv "$TMP_FILE" "$DB_FILE"                     # rewrite the database
-  echo "${YELLOW}INFO: The id '$1' succesfully removed of Database!"
+  echo -e  '\033[1;5;33mINFO: ID '$1' succesfully removed of database!\033[m'
+  echo -en '\033[1;5;33m[ENTER] to continue...\033[m' && read
+  exit 1
   Update_func # this function updates last id in use
 }
 

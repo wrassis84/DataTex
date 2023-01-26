@@ -34,4 +34,8 @@ id:complete name:login:age:gender:job title:department
 30:Patrisha Ferrari:patrisha.ferrari:36:M:general manager:business
 31:Airton Senna:airton.senna:45:M:runner:races
 32:Michael Schumaker:michael.schumaker:56:M:runner:races
+<<<<<<< HEAD
+>>>>>>> datatex
+=======
+33:William Shakespeare:william.shakespeare:66:M:poetry:letters
 >>>>>>> datatex

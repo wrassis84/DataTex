@@ -16,6 +16,10 @@
 # DataTex.sh      : List, Add and Remove users from DataTex systems.
 # Requirements    : LibTex.sh
 # Usage           : ./DataTex.sh [ list | add | remove ]
+<<<<<<< HEAD
+>>>>>>> datatex
+=======
+# Contributions   : Fábio Berbert de Paula in: shorturl.at/qtwyB
 >>>>>>> datatex
 #
 ### TESTING ENVIRONMENT ########################################################
@@ -42,7 +46,7 @@ ESC="\033[m"         #| ESCAPE character
   echo "        add    - Add a new user to the system"
   echo "        remove - Remove an user from the system"
   echo
-  return 1
+  exit 0
 }
 
 source "$LIB_FILE" || {
@@ -61,7 +65,7 @@ case "$1" in
   add)
   id=$(NextId_func)
   echo -n "Enter complete name: "
-  read name
+  read name && name=$(echo "$name" | sed -E 's/^.*$/\L&/ ; s/\w+/\u&/g')
   echo -n "Enter login [first name.last name]: "
   read login && login=$(echo $login | tr [A-Z] [a-z])
   echo -n "Enter age [0-99]: "
@@ -89,10 +93,9 @@ case "$1" in
        return 1
 =======
   remove)
-  local all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
+  all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
   echo "DataTex users list:"
   echo "$all_users"
-  echo
   echo
   echo -n "Which ID do you want to remove? "
   read id
@@ -101,7 +104,7 @@ case "$1" in
   if Search_func "$id" ; then
     Remove_func "$id"
   else
-    echo -e '\033[1;33mINFO: ID $id not exists on Database! \033[m'
+    echo '\033[1;33mINFO: ID $id not exists on Database! \033[m'
   fi
   echo
   ;;
