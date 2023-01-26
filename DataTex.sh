@@ -42,7 +42,7 @@ LIB_FILE="LibTex.sh" #| Library file
   echo "   add    - Add a new user to the system"
   echo "   remove - Removes an user from the system"
   echo
-  return 1
+  exit 0
 }
 
 source "$LIB_FILE" || {
