@@ -4,13 +4,11 @@
 #
 ### ABOUT ######################################################################
 #
-# Repository : https://github.com/wrassis84/DataTex
-# Author     : William Ramos de Assis Rezende
-# Maintainer : William Ramos de Assis Rezende
-#
-# LibTex.sh  : Library of functions for managing textual databases.
-#
-# Usage      : Run 'source DataTex.sh' to include it in your programs.
+# Repository      : https://github.com/wrassis84/DataTex
+# Author          : William Ramos de Assis Rezende
+# Maintainer      : William Ramos de Assis Rezende
+# LibTex.sh       : Library of functions for managing textual databases.
+# Usage           : Run 'source DataTex.sh' to include it in your programs.
 #
 ### TESTING ENVIRONMENT ########################################################
 #
