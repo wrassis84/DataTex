@@ -4,23 +4,13 @@
 #
 ### ABOUT ######################################################################
 #
-# Repository   : https://github.com/wrassis84/DataTex
-# Author       : William Ramos de Assis Rezende
-# Maintainer   : William Ramos de Assis Rezende
-#
-<<<<<<< HEAD
-# DataTex.sh   : List, Add and Remove users from DataTex systems.
-# Requirements : LibTex.sh
-# Usage        : DataTex.sh [ list | add | remove ]
-=======
+# Repository      : https://github.com/wrassis84/DataTex
+# Author          : William Ramos de Assis Rezende
+# Maintainer      : William Ramos de Assis Rezende
 # DataTex.sh      : List, Add and Remove users from DataTex systems.
 # Requirements    : LibTex.sh
-# Usage           : ./DataTex.sh [ list | add | remove ]
-<<<<<<< HEAD
->>>>>>> datatex
-=======
+# Usage           : DataTex.sh [ list | add | remove ]
 # Contributions   : Fábio Berbert de Paula in: shorturl.at/qtwyB
->>>>>>> datatex
 #
 ### TESTING ENVIRONMENT ########################################################
 #
@@ -80,18 +70,7 @@ case "$1" in
   Insert_func "$id:$name:$login:$age:$gender:$job:$dept"
   echo
   ;;
-
-<<<<<<< HEAD
-       * )
-<<<<<<< HEAD
-       echo
-       echo "${YELLOW}WARN: Invalid option: '$1'!"
-       echo
-=======
-       echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
->>>>>>> datatex
-       return 1
-=======
+  
   remove)
   all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
   echo "DataTex users list:"
