@@ -48,6 +48,7 @@ source "$LIB_FILE" || {
 }
 
 case "$1" in
+
   list)
     Select_func
   ;;
@@ -86,6 +87,10 @@ case "$1" in
     echo -e '\033[1;33mINFO: ID '$id' not exists on Database! \033[m'
   fi
   echo
+  ;;
+
+  backup)
+    Backup_func -b
   ;;
 
   *)
