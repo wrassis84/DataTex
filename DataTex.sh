@@ -11,6 +11,7 @@
 # DataTex.sh      : List, Add and Remove users from DataTex systems.
 # Requirements    : LibTex.sh
 # Usage           : ./DataTex.sh [ list | add | remove ]
+# Contributions   : Fábio Berbert de Paula in: shorturl.at/qtwyB
 #
 ### TESTING ENVIRONMENT ########################################################
 #
@@ -60,7 +61,6 @@ case "$1" in
   add)
   id=$(NextId_func)
   echo -n "Enter complete name: "
-  read name
   echo -n "Enter login [first name.last name]: "
   read login && login=$(echo $login | tr [A-Z] [a-z])
   echo -n "Enter age [0-99]: "
@@ -81,7 +81,6 @@ case "$1" in
   echo "DataTex users list:"
   echo "$all_users"
   echo
-  echo
   echo -n "Which ID do you want to remove? "
   read id
   echo
@@ -89,7 +88,7 @@ case "$1" in
   if Search_func "$id" ; then
     Remove_func "$id"
   else
-    echo -e '\033[1;33mINFO: ID $id not exists on Database! \033[m'
+    echo '\033[1;33mINFO: ID $id not exists on Database! \033[m'
   fi
   echo
   ;;
