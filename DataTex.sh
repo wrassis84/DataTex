@@ -61,6 +61,7 @@ case "$1" in
   add)
   id=$(NextId_func)
   echo -n "Enter complete name: "
+  read name && name=$(echo "$name" | sed -E 's/^.*$/\L&/ ; s/\w+/\u&/g')
   echo -n "Enter login [first name.last name]: "
   read login && login=$(echo $login | tr [A-Z] [a-z])
   echo -n "Enter age [0-99]: "
