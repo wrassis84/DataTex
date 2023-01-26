@@ -77,7 +77,7 @@ case "$1" in
   ;;
 
   remove)
-  local all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
+  all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
   echo "DataTex users list:"
   echo "$all_users"
   echo
