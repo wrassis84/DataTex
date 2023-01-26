@@ -67,19 +67,19 @@ HELP_MSG="
 ### TESTS/VALIDATIONS ##########################################################
 # Does the database file exist?
 [ ! -e "$DB_FILE" ] \
-  && echo    "${RED}ERROR: Missing database file '$DB_FILE'!"${ESC}  \
-  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && return
+  && echo -e  '\033[1;31mERROR: Missing database file '$DB_FILE'! \033[m'    \
+  && echo -en '\033[1;31m[ENTER] to continue: \033[m' && read REPLY && clear \
+  && exit 1
 # Does the database file have read permission?
 [ ! -r "$DB_FILE" ] \
-  && echo    "${RED}ERROR: No read permission on '$DB_FILE'!"${ESC}  \
-  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && return
+  && echo -e  '\033[1;31mERROR: No read permission on '$DB_FILE'! \033[m'    \
+  && echo -en '\033[1;31m[ENTER] to continue: \033[m' && read REPLY && clear \
+  && exit 1
 # Does the database file have write permission?
 [ ! -w "$DB_FILE" ] \
-  && echo    "${RED}ERROR: No write permission on '$DB_FILE'!"${ESC} \
-  && echo -n "[ENTER] to continue:" && read REPLY && clear           \
-  && return
+  && echo -e  '\033[1;31mERROR: No write permission on '$DB_FILE'! \033[m'   \
+  && echo -en '\033[1;31m[ENTER] to continue: \033[m' && read REPLY && clear \
+  && exit 1
 #
 ### FUNCTION DECLARATION #######################################################
 #
@@ -105,7 +105,7 @@ Insert_func () {
   local id=$(echo "$1" | cut -d "$SEP" -f 1)   # get record's first field
   if Search_func "$id"; then # if true
     clear
-    echo "${YELLOW}INFO: The id '$id' already exists on database!"
+    echo -e '\033[1;5;33mINFO: ID '$id' already exists on database! \033[m'
     return 1
   else
     echo "$*" >> "$DB_FILE" 2>&-  # write the record on database
@@ -175,10 +175,14 @@ Backup_func () {
   local bkp_file="$DB_FILE-$bkp_date.tar.gz"
   case "$1" in
     -b) tar --gzip -cvvvf $bkp_file $src_file > /dev/null    && # bkp database
-        echo "${GREEN}INFO: Backup performed successfully! "            ;;
+        echo -e '\033[1;32mINFO: Backup performed successfully!  \033[m'
+    ;;
     -r) tar -xvf $bkp_file > /dev/null                       && # restores bkp
-        echo "${GREEN}INFO: Restore performed successfully!"            ;;
-     *) echo "${YELLOW}WARN: Use -b to backup or -r to restore"; return ;;
+        echo -e '\033[1;32mINFO: Restore performed successfully! \033[m'
+    ;;
+     *) echo -e '\033[1;33mWARN: Use -b to backup or -r to restore \033[m'
+        return
+    ;;
   esac
 }
 #
