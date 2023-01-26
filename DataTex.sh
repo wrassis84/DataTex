@@ -93,6 +93,10 @@ case "$1" in
     Backup_func -b
   ;;
 
+  restore)
+    Backup_func -r
+  ;;
+
   *)
   echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
   return 1
