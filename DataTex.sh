@@ -50,7 +50,7 @@ source "$LIB_FILE" || {
   echo '\033[1;5;31m WARN: Library $LIB_FILE not loaded! \033[m'
   read REPLY
   clear
-  return 1
+  exit 1
 }
 
 case "$1" in
@@ -82,14 +82,14 @@ case "$1" in
   echo "DataTex users list:"
   echo "$all_users"
   echo
-  echo -n "Which ID do you want to remove? "
+  echo -en '\033[1;4;33mWhich ID do you want to remove? \033[m '
   read id
   echo
 
   if Search_func "$id" ; then
     Remove_func "$id"
   else
-    echo '\033[1;33mINFO: ID $id not exists on Database! \033[m'
+    echo -e '\033[1;33mINFO: ID '$id' not exists on Database! \033[m'
   fi
   echo
   ;;
