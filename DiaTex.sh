@@ -23,18 +23,18 @@ LIB_FILE="LibTex.sh" #| Library file
 #
 ### MAIN CODE ##################################################################
 #
-[ "$1" ] || {
-  echo
-  echo "   Usage: ./DataTex.sh [ list | add | remove | backup | restore ]"
-  echo
-  echo "        list    - List all system users"
-  echo "        add     - Add a new user to the system"
-  echo "        remove  - Remove an user from the system"
-  echo "        backup  - Backup database"
-  echo "        restore - Restore backup database"
-  echo
-  exit 0
-}
+# [ "$1" ] || {
+#   echo
+#   echo "   Usage: ./DataTex.sh [ list | add | remove | backup | restore ]"
+#   echo
+#   echo "        list    - List all system users"
+#   echo "        add     - Add a new user to the system"
+#   echo "        remove  - Remove an user from the system"
+#   echo "        backup  - Backup the database"
+#   echo "        restore - Restore database backup"
+#   echo
+#   exit 0
+# }
 
 source "$LIB_FILE" || {
             #[{bold};{flashing};{red}m
@@ -44,7 +44,16 @@ source "$LIB_FILE" || {
   exit 1
 }
 
-case "$1" in
+option=$( dialog --stdout                          \
+          --menu "DiaTex - Friendly Interface"     \
+          0 0 0                                    \
+          list    "List all system users"          \
+          add     "Add a new user to the system"   \
+          remove  "Remove an user from the system" \
+          backup  "Backup the database"            \
+          restore "Restore database backup"        )
+
+case "$option" in
 
   list)
     Select_func
