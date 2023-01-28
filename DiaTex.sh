@@ -64,26 +64,29 @@ case "$option" in
 
   add)
   id=$(NextId_func)
-  echo -n "Enter complete name: "
-  read name && name=$(echo "$name" | sed -E 's/^.*$/\L&/ ; s/\w+/\u&/g')
-  echo -n "Enter login [first name.last name]: "
-  read login && login=$(echo $login | tr [A-Z] [a-z])
-  echo -n "Enter age [0-99]: "
-  read age
-  echo -n "Enter gender [M|F]: "
-  read gender && gender=$(echo $gender | tr [a-z] [A-Z])
-  echo -n "Enter job title: "
-  read job && job=$(echo $job | tr [A-Z] [a-z])
-  echo -n "Enter department: "
-  read dept && dept=$(echo $dept | tr [A-Z] [a-z])
-  echo
+  login=$(dialog --stdout --inputbox "Enter login:" 0 0)
+  [ "$login" ] || exit 1
+  
+  Search_func "$login" && {
+    msg="The login '$login' already exists on database!"
+    dialog --msgbox "$msg" 6 40
+    exit 1
+  }
+
+  name=$(dialog --stdout --inputbox "Complete Name:" 0 0)
+  login=$(dialog --stdout --inputbox "Login [first name.last name]:" 0 0)
+  age=$(dialog --stdout --inputbox "Age [0-99]:" 0 0)
+  gender=$(dialog --stdout --inputbox "Gender [M|F|NB]:" 0 0)
+  job=$(dialog --stdout --inputbox "Job Title:" 0 0)
+  dept=$(dialog --stdout --inputbox "Department" 0 0)
   Insert_func "$id:$name:$login:$age:$gender:$job:$dept"
-  echo
+  msg="User '$name' succesfully recorded on database!"
+  dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
   
   remove)
   all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
-  echo "DataTex users list:"
+  echo "DiaTex System Users"
   echo "$all_users"
   echo
   echo -en '\033[1;4;33mWhich ID do you want to remove? \033[m '
