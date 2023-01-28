@@ -83,8 +83,11 @@ HELP_MSG="
 #
 # This function search a record in database. Only for internal use
 Search_func () {
-  Update_func
-  grep -q "^$1$SEP" "$DB_FILE"
+  #Update_func
+  #grep -q "^$1$SEP" "$DB_FILE"
+  log=$(mktemp -t log_XXXX)
+  cat "$DB_FILE" | cut -d "$SEP" -f 3 | sed 1d | sort > "$log"
+  grep -q "$1" "$log"
 }
 
 # This function remove a record of database, before checking if it exists

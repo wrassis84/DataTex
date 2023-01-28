@@ -36,3 +36,7 @@ id:complete name:login:age:gender:job title:department
 35:George Walker Bush:george.bush:65:M:president:deliveries
 36:Barack Obama:barack.obama:56:M:president:deliveries
 37:Leonardo Da Vinci:leonardo.vinci:150:M:inventor:creating
+38:Frank Jonhy Sinatra:frank.sinatra:80:M:singer:show business
+39:William Henry Gates III:william.gates:65:NB:salesman:sales
+40:Richard Matthew Stallman:richard.stallman:69:M:programmer:technology
+41:Ginni Rometty:ginni.rometty:68:NB:chairman:management
