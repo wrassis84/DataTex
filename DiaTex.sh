@@ -45,7 +45,7 @@ source "$LIB_FILE" || {
 }
 
 option=$( dialog --stdout                          \
-          --menu "DiaTex - Friendly Interface"     \
+          --menu "DiaTex Systems"     \
           0 0 0                                    \
           list    "List all system users"          \
           add     "Add a new user to the system"   \
@@ -56,7 +56,10 @@ option=$( dialog --stdout                          \
 case "$option" in
 
   list)
-    Select_func
+    tmp=$(mktemp -t tmp_XXXX)
+    cat "$DB_FILE" | column -t -s "$SEP" > "$tmp"
+    dialog --title "DiaTex System Users" --textbox "$tmp" 0 0
+    rm $tmp
   ;;
 
   add)
@@ -105,7 +108,7 @@ case "$option" in
 
   *)
   echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
-  return 1
+  exit 1
   ;;
 esac
 #
