@@ -25,11 +25,13 @@ LIB_FILE="LibTex.sh" #| Library file
 #
 [ "$1" ] || {
   echo
-  echo "   Usage: ./DataTex.sh [ list | add | remove ]"
+  echo "   Usage: ./DataTex.sh [ list | add | remove | backup | restore ]"
   echo
-  echo "        list   - List all system users"
-  echo "        add    - Add a new user to the system"
-  echo "        remove - Remove an user from the system"
+  echo "        list    - List all system users"
+  echo "        add     - Add a new user to the system"
+  echo "        remove  - Remove an user from the system"
+  echo "        backup  - Backup database"
+  echo "        restore - Restore backup database"
   echo
   exit 0
 }
