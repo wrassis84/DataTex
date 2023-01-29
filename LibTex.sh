@@ -90,6 +90,12 @@ Search_func () {
   grep -q "$1" "$log"
 }
 
+SearchID_func () {
+  temp=$(mktemp -t temp_XXXX)
+  cat "$DB_FILE" | cut -d "$SEP" -f 1 | sed 1d | sort > "$temp"
+  grep -q "$1" "$temp"
+}
+
 # This function remove a record of database, before checking if it exists
 Remove_func () {
   Search_func "$1" || return     # don't go ahead if the record doesn't exist
