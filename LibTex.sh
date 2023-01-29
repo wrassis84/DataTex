@@ -175,8 +175,8 @@ Backup_func () {
   local src_file="$DB_FILE"
   local bkp_file="$DB_FILE-$bkp_date.tar.gz"
   case "$1" in
-    -b) tar --gzip -cvvvf $bkp_file $src_file > /dev/null    && # bkp database
-        echo -e '\033[1;32mINFO: Backup performed successfully!  \033[m'
+    -b) tar --gzip -cvvvf $bkp_file $src_file > /dev/null    #&& # bkp database
+        # echo -e '\033[1;32mINFO: Backup performed successfully!  \033[m'
     ;;
     -r) tar -xvf $bkp_file > /dev/null                       && # restores bkp
         echo -e '\033[1;32mINFO: Restore performed successfully! \033[m'

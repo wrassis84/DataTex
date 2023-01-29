@@ -103,6 +103,8 @@ case "$option" in
 
   backup)
     Backup_func -b
+    msg="Backup performed successfully!"
+    dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
 
   restore)
