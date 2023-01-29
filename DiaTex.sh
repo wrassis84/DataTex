@@ -85,20 +85,33 @@ case "$option" in
   ;;
   
   remove)
-  all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
-  echo "DiaTex System Users"
-  echo "$all_users"
-  echo
-  echo -en '\033[1;4;33mWhich ID do you want to remove? \033[m '
-  read id
-  echo
+  tmp=$(mktemp -t tmp_XXXX)
+  cat "$DB_FILE" | column -t -s "$SEP" > "$tmp"
+  dialog --title "Which ID do you want to remove?" --textbox "$tmp" 0 0
+  rm $tmp
 
-  if Search_func "$id" ; then
-    Remove_func "$id"
-  else
-    echo -e '\033[1;33mINFO: ID '$id' not exists on Database! \033[m'
-  fi
-  echo
+  id=$(dialog --stdout --inputbox "Enter the ID you want to remove:" 0 0)
+  SearchID_func "$id" || {
+    msg="The ID '$id' not exists on database!"
+    dialog --msgbox "$msg" 6 40
+    exit 1
+  } 
+  # TODO: Remove the selected ID
+  
+  # all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
+  # echo "DiaTex System Users"
+  # echo "$all_users"
+  # echo
+  # echo -en '\033[1;4;33mWhich ID do you want to remove? \033[m '
+  # read id
+  # echo
+
+  # if Search_func "$id" ; then
+  #   Remove_func "$id"
+  # else
+  #   echo -e '\033[1;33mINFO: ID '$id' not exists on Database! \033[m'
+  # fi
+  # echo
   ;;
 
   backup)
@@ -108,15 +121,16 @@ case "$option" in
   ;;
 
   restore)
+    # FIXME: restore function runs even without backup file
     Backup_func -r
     msg="Restore performed successfully!"
     dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
 
-  *)
-  echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
-  exit 1
-  ;;
+  # *)
+  # echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
+  # exit 1
+  # ;;
 esac
 #
 ### MAIN CODE ##################################################################
