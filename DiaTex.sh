@@ -95,9 +95,17 @@ case "$option" in
     msg="The ID '$id' not exists on database!"
     dialog --msgbox "$msg" 6 40
     exit 1
-  } 
-  # TODO: Remove the selected ID
+  }
   
+  RemoveID_func "${id}" && {
+    msg="ID '$1' succesfully removed of database!"
+    dialog --msgbox "$msg" 6 40
+    exit 1
+  }
+  # msg="The choosen ID was: '$id'!"
+  # dialog --msgbox "$msg" 6 40
+  # exit 1 
+   
   # all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
   # echo "DiaTex System Users"
   # echo "$all_users"
