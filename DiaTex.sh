@@ -92,12 +92,12 @@ case "$option" in
 
   id=$(dialog --stdout --inputbox "Enter the ID you want to remove:" 0 0)
   SearchID_func "$id" || {
-    msg="The ID '$id' not exists on database!"
+    msg="ID '$id' not exists on database!"
     dialog --msgbox "$msg" 6 40
     exit 1
   }
   
-  RemoveID_func "${id}" && {
+  RemoveID_func "$id" && {
     msg="ID '$1' succesfully removed of database!"
     dialog --msgbox "$msg" 6 40
     exit 1
