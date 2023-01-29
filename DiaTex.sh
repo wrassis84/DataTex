@@ -98,7 +98,7 @@ case "$option" in
   }
   
   RemoveID_func "$id" && {
-    msg="ID '$1' succesfully removed of database!"
+    msg="ID '$id' succesfully removed of database!"
     dialog --msgbox "$msg" 6 40
     exit 1
   }
