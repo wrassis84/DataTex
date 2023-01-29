@@ -109,6 +109,8 @@ case "$option" in
 
   restore)
     Backup_func -r
+    msg="Restore performed successfully!"
+    dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
 
   *)

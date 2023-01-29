@@ -178,8 +178,8 @@ Backup_func () {
     -b) tar --gzip -cvvvf $bkp_file $src_file > /dev/null    #&& # bkp database
         # echo -e '\033[1;32mINFO: Backup performed successfully!  \033[m'
     ;;
-    -r) tar -xvf $bkp_file > /dev/null                       && # restores bkp
-        echo -e '\033[1;32mINFO: Restore performed successfully! \033[m'
+    -r) tar -xvf $bkp_file > /dev/null                       #&& # restores bkp
+        # echo -e '\033[1;32mINFO: Restore performed successfully! \033[m'
     ;;
      *) echo -e '\033[1;33mWARN: Use -b to backup or -r to restore \033[m'
         return
