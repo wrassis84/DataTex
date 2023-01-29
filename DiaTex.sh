@@ -73,13 +73,26 @@ case "$option" in
     exit 1
   }
 
-  name=$(dialog --stdout --inputbox "Complete Name:" 0 0)
-  login=$(dialog --stdout --inputbox "Login [first name.last name]:" 0 0)
+  name=$(dialog --stdout --inputbox "Complete Name:" 0 0)                 && {
+    name=$(echo "$name" | sed -E 's/^.*$/\L&/ ; s/\w+/\u&/g')
+  }
+  login=$(dialog --stdout --inputbox "Login [first name.last name]:" 0 0) && {
+    login=$(echo $login | tr [A-Z] [a-z])
+  }
   age=$(dialog --stdout --inputbox "Age [0-99]:" 0 0)
-  gender=$(dialog --stdout --inputbox "Gender [M|F|NB]:" 0 0)
-  job=$(dialog --stdout --inputbox "Job Title:" 0 0)
-  dept=$(dialog --stdout --inputbox "Department" 0 0)
+
+  gender=$(dialog --stdout --inputbox "Gender [M|F|NB]:" 0 0)             && {
+    gender=$(echo $gender | tr [a-z] [A-Z])
+  }
+  job=$(dialog --stdout --inputbox "Job Title:" 0 0)                      && {
+    job=$(echo $job | tr [A-Z] [a-z])
+  }
+  dept=$(dialog --stdout --inputbox "Department" 0 0)                     && {
+    dept=$(echo $dept | tr [A-Z] [a-z])
+  }
+  
   Insert_func "$id:$name:$login:$age:$gender:$job:$dept"
+  
   msg="User '$name' succesfully recorded on database!"
   dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
@@ -96,30 +109,11 @@ case "$option" in
     dialog --msgbox "$msg" 6 40
     exit 1
   }
-  
   RemoveID_func "$id" && {
     msg="ID '$id' succesfully removed of database!"
     dialog --msgbox "$msg" 6 40
     exit 1
   }
-  # msg="The choosen ID was: '$id'!"
-  # dialog --msgbox "$msg" 6 40
-  # exit 1 
-   
-  # all_users=$(cat "$DB_FILE" | column -t -s "$SEP")
-  # echo "DiaTex System Users"
-  # echo "$all_users"
-  # echo
-  # echo -en '\033[1;4;33mWhich ID do you want to remove? \033[m '
-  # read id
-  # echo
-
-  # if Search_func "$id" ; then
-  #   Remove_func "$id"
-  # else
-  #   echo -e '\033[1;33mINFO: ID '$id' not exists on Database! \033[m'
-  # fi
-  # echo
   ;;
 
   backup)
@@ -134,11 +128,6 @@ case "$option" in
     msg="Restore performed successfully!"
     dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
-
-  # *)
-  # echo -e '\033[1;33mWARN: Invalid option: $1! \033[m'
-  # exit 1
-  # ;;
 esac
 #
 ### MAIN CODE ##################################################################

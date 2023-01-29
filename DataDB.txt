@@ -40,3 +40,6 @@ id:complete name:login:age:gender:job title:department
 39:William Henry Gates III:william.gates:65:NB:salesman:sales
 40:Richard Matthew Stallman:richard.stallman:69:M:programmer:technology
 41:Ginni Rometty:ginni.rometty:68:NB:chairman:management
+42:Aurelio Marinho Jargas:aurelio.jargas:45:M:programmer:technology
+43:Júlio César Neves:julio.neves:56:M:programmer:technology
+44:Travis Kalanick:travis.kalanick:65:NB:general manager:management
