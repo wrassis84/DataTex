@@ -73,21 +73,23 @@ case "$option" in
     exit 1
   }
 
-  name=$(dialog --stdout --inputbox "Complete Name:" 0 0)                 && {
+  name=$(dialog --stdout --inputbox "Enter Complete Name:" 0 0)            && {
     name=$(echo "$name" | sed -E 's/^.*$/\L&/ ; s/\w+/\u&/g')
   }
-  login=$(dialog --stdout --inputbox "Login [first name.last name]:" 0 0) && {
+
+  login=$(dialog --stdout --inputbox "Enter Login [first.last name]:" 0 0) && {
     login=$(echo $login | tr [A-Z] [a-z])
   }
-  age=$(dialog --stdout --inputbox "Age [0-99]:" 0 0)
 
-  gender=$(dialog --stdout --inputbox "Gender [M|F|NB]:" 0 0)             && {
+  age=$(dialog --stdout --inputbox "Enter Age [0-99]:" 0 0)
+
+  gender=$(dialog --stdout --inputbox "Enter Gender [M|F|NB]:" 0 0)        && {
     gender=$(echo $gender | tr [a-z] [A-Z])
   }
-  job=$(dialog --stdout --inputbox "Job Title:" 0 0)                      && {
+  job=$(dialog --stdout --inputbox "Enter Job Title:" 0 0)                 && {
     job=$(echo $job | tr [A-Z] [a-z])
   }
-  dept=$(dialog --stdout --inputbox "Department" 0 0)                     && {
+  dept=$(dialog --stdout --inputbox "Enter Department" 0 0)                && {
     dept=$(echo $dept | tr [A-Z] [a-z])
   }
   
