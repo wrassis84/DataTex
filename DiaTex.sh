@@ -44,8 +44,10 @@ source "$LIB_FILE" || {
   exit 1
 }
 
+while :
+do
 option=$( dialog --stdout                          \
-          --menu "DiaTex Systems"     \
+          --menu "DiaTex Systems"                  \
           0 0 0                                    \
           list    "List all system users"          \
           add     "Add a new user to the system"   \
@@ -53,8 +55,8 @@ option=$( dialog --stdout                          \
           backup  "Backup the database"            \
           restore "Restore database backup"        )
 
-case "$option" in
 
+case "$option" in
   list)
     tmp=$(mktemp -t tmp_XXXX)
     cat "$DB_FILE" | column -t -s "$SEP" > "$tmp"
@@ -131,5 +133,6 @@ case "$option" in
     dialog --title "INFO" --msgbox "$msg" 6 40
   ;;
 esac
+done
 #
 ### MAIN CODE ##################################################################

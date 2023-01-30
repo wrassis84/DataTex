@@ -43,3 +43,5 @@ id:complete name:login:age:gender:job title:department
 42:Aurelio Marinho Jargas:aurelio.jargas:45:M:programmer:technology
 43:Júlio César Neves:julio.neves:56:M:programmer:technology
 44:Travis Kalanick:travis.kalanick:65:NB:general manager:management
+45:Zinedine Zidane:zinedine.zidane:46:NB:clown:deliveries
+46:Amir Ahmadi:amir.ahmadi:35:NB:programmer:technology
