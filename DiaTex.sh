@@ -59,7 +59,7 @@ case "$option" in
   
   Search_func "$login" && {
     msg="The login '$login' already exists on database!"
-    dialog --msgbox "$msg" 6 40
+    dialog --title "INFO" --msgbox "$msg" 6 40
     exit 1
   }
 
