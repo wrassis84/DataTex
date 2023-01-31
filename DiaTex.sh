@@ -23,18 +23,6 @@ LIB_FILE="LibTex.sh" #| Library file
 #
 ### MAIN CODE ##################################################################
 #
-# [ "$1" ] || {
-#   echo
-#   echo "   Usage: ./DataTex.sh [ list | add | remove | backup | restore ]"
-#   echo
-#   echo "        list    - List all system users"
-#   echo "        add     - Add a new user to the system"
-#   echo "        remove  - Remove an user from the system"
-#   echo "        backup  - Backup the database"
-#   echo "        restore - Restore database backup"
-#   echo
-#   exit 0
-# }
 
 source "$LIB_FILE" || {
             #[{bold};{flashing};{red}m
