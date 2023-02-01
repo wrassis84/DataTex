@@ -42,7 +42,7 @@ option=$( dialog --stdout                          \
           remove  "Remove an user from the system" \
           backup  "Backup the database"            \
           restore "Restore database backup"        )
-
+[ $? -ne 0 ] && exit # exit program when pressed "CANCEL" or "ESC"
 
 case "$option" in
   list)
@@ -94,6 +94,7 @@ case "$option" in
   cat "$DB_FILE" | column -t -s "$SEP" > "$tmp"
   dialog --title "Which ID do you want to remove?" --textbox "$tmp" 0 0
   rm $tmp
+  # TODO: Backup database before remove user
 
   id=$(dialog --stdout --inputbox "Enter the ID you want to remove:" 0 0)
   SearchID_func "$id" || {
